@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./style.css">
+        <title>Orinoco</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="index.html"><img src="./images/logo.png" alt="Orinoco"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Articles <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="basket.html">Panier</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <section id="itemsPage" class="text-center">
+                <h2 class="py-2">
+                    Articles
+                </h2>
+                <h3 class="py-3">
+                    Appareils de Photo Vintage
+                </h3>
+                <div class="container">
+                    <div class="row px-auto" id="itemsList">
+                    </div>
+                </div>
+                </br></br>
+                <!-- <h2>
+                    Votre sélection
+                </h2>
+                <div id="selectedItemDiv">
+                </div>
+                <button type="button" class="btn btn-outline-dark d-none active hidablebtn" id="blackButton">Noir</button>
+                <button type="button" class="btn btn-outline-danger d-none hidablebtn" id="redButton">Rouge</button>
+            </br></br>
+            <button type="button" class="btn btn-success d-none hidablebtn" id="addToCart">Ajouter au Panier</button> -->
+        
+            </section>
+
+            <section id="basketPage" class="d-none">
+                <h2>
+                    Panier
+                </h2>
+                <ul class="list-group list-group-flush" id="basketItemsList">
+                </ul>
+                <div></div>
+
+            </section>
+        </div>
+        <script src="script.js"></script> 
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>

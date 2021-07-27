@@ -1,0 +1,34 @@
+img {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+}
+
+/* #wholePage {
+    background-color: #F3E9F1;
+} */
+body {
+    background-color: #F3E9F1!important;
+}
+.listItem {
+    background-color: black;
+}
+
+/* html {
+    background-color: #F3E9F1;
+} */
+
+#itemsList {
+    display: flex;
+    justify-content: center;
+}
+
+#customizeCamera {
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.imageParams {
+    height: 120px;
+}
