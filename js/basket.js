@@ -2,12 +2,10 @@
 
 // on crée une fonction qui récupère le panier
 function getBasket() {
-    let basket = []
-    for (let i = 0; i < localStorage.length; i++){
-        let currentItem = localStorage.getItem(localStorage.key(i));
-        basket.push(currentItem)
-    }
-    // console.log("le panier : " + basket)
+    // on récupère la valeur de la clef Basket, c'est donc une string
+    let stringBasket = localStorage.getItem('Basket')
+    // on transforme cette string en array contenant les IDs des appareils de photo
+    let basket = stringBasket.split(","); 
     return basket
 }
 let camerasInBasket = []
@@ -15,6 +13,7 @@ let camerasInBasket = []
 async function basketListBuilder() {
     const itemsListBasket = document.getElementById('basketList');   
     let basketIds = getBasket()
+    console.log("basket ids => " + basketIds)
     let namesInBasket = []
     // console.log("basket IDs : " + basketIds)
     for (let i = 0; i < basketIds.length; i++) {
@@ -87,7 +86,7 @@ async () => {
     const informationDiv = document.getElementById('informationDiv')
     // si l'API renvoie un numéro de commande, c'est qu'on lui a envoyé une requête satisfaisante, on vérifie donc la truthiness de notre variable orderId avant de vider le localStorage et de passer à la page de confirmation
     if(orderId){
-        localStorage.clear()
+        localStorage.clear();
         location.href = `orderconfirmation.html?order=${orderId}`
     }
     // si le localStorage a une longueur de 0, c'est qu'il n'y a rien dans le panier
