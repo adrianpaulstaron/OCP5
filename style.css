@@ -23,6 +23,12 @@ body {
     justify-content: center;
 }
 
+
+#basketList {
+    display: flex;
+    justify-content: center;
+}
+
 #customizeCamera {
     display: flex;
     justify-content: center;
@@ -31,4 +37,8 @@ body {
 
 .imageParams {
     height: 120px;
+}
+
+.form-group {
+    max-width: 500px;
 }

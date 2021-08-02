@@ -31,6 +31,18 @@
                 <h2 class="py-2">
                     Panier
                 </h2>
+                <div id="informationDiv"></div>
+                <dic id="totalPriceDiv"></dic>
+                <form id="contactform" class="m-4 mx-auto">
+                    <div class="form-group mx-auto">
+                        <input id="firstName" name="firstName" type="text" class="form-control my-1" placeholder="Prénom" required>
+                        <input id="lastName" name="lastName" type="text" class="form-control my-1" placeholder="Nom de famille" required>
+                        <input id="address" name="address" type="text" class="form-control my-1" placeholder="Adresse" required>
+                        <input id="city" name="city" type="text" class="form-control my-1" placeholder="Ville" required>
+                        <input id="email" name="email" type="email" class="form-control my-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail" required>
+                    </div>
+                    <button type="button" class="btn btn-dark" id="placeOrder">Passer commande</button>
+                </form>
                 <div class="container">
                     <div class="row px-auto" id="basketList">
                     </div>
@@ -52,13 +64,16 @@
                 <h2>
                     Panier
                 </h2>
+
+                <div id="totalPrice"></div>
                 <ul class="list-group list-group-flush" id="basketItemsList">
                 </ul>
                 <div></div>
 
             </section>
         </div>
-        <script src="script.js"></script> 
+        <script src="js/main.js"></script>
+        <script src="js/basket.js"></script> 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
