@@ -14,10 +14,6 @@ body {
     background-color: black;
 }
 
-/* html {
-    background-color: #F3E9F1;
-} */
-
 #itemsList {
     display: flex;
     justify-content: center;
@@ -41,4 +37,8 @@ body {
 
 .form-group {
     max-width: 500px;
+}
+
+.quantityFields{
+    max-width: 80px;
 }

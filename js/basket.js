@@ -11,13 +11,45 @@ function getBasket() {
 let camerasInBasket = []
 
 async function basketListBuilder() {
-    const itemsListBasket = document.getElementById('basketList');   
+    const itemsListBasket = document.getElementById('basketList');
     let basketIds = getBasket()
-    console.log("basket ids => " + basketIds)
+    let basketIdsList = []
+    let basketIdsObjects = []
+    // on déclare une fonction pour trouver les IDs déjà existants dans un array
+    function idFinder(array, id) {
+        array.find(element => element === id);
+        if(array.find(element => element === id)){
+            // elle retourne true si elle trouve l'id cherché
+            return true
+        }
+    } 
+    let foundId
+    for (let i = 0; i < basketIds.length; i++) {
+        // on déclare une fonction pour trouver les IDs déjà existants dans un array
+        function search(nameKey, array){
+            for (var i=0; i < array.length; i++) {
+                if (array[i].id === nameKey) {
+                    return [i];
+                }
+            }
+        }
+        // on crée une variable qui exécute cette fonction dans un array que l'on va peupler avec des objets ayant pour attribut les IDs des appareils de photo et leur quantité
+        foundId = search(basketIds[i], basketIdsObjects)
+        if(!foundId){
+            // si l'objet de l'appareil de photo courant n'existe pas, on push un objet dans l'array basketIdsList, ayant pour attributs l'id, et la quantité, qui est donc à 1.
+            basketIdsObjects.push(
+                {id : basketIds[i],
+                quantity: 1}
+            )
+        }else{
+            // si l'objet de l'appareil de photo courant existe, on incrémente sa quantité
+            basketIdsObjects[foundId].quantity ++
+        }
+    } 
     let namesInBasket = []
     // console.log("basket IDs : " + basketIds)
-    for (let i = 0; i < basketIds.length; i++) {
-        let currentCamera = await apiConnection.getSelectedCamera(basketIds[i])
+    for (let i = 0; i < basketIdsObjects.length; i++) {
+        let currentCamera = await apiConnection.getSelectedCamera(basketIdsObjects[i].id)
         let cameraPrice = addSpace(currentCamera.price)
         itemsListBasket.innerHTML = itemsListBasket.innerHTML +
         `<div class="card mb-3 mx-3" style="max-width: 500px;">
@@ -30,8 +62,11 @@ async function basketListBuilder() {
                         <h5 class="card-title">${currentCamera.name}</h5>
                         <p class="card-text">${currentCamera.description}</p>
                         <p class="card-text"><small class="text-muted">${cameraPrice} €</small></p>
+                        <form id="quantityForm-${currentCamera._id}">
+                        <input id="quantity-${basketIdsObjects[i].id}" name="quantity" type="number" class="form-control my-1 quantityFields" value=${basketIdsObjects[i].quantity} required>
+                        </form>
                         <a href='#' class='btn btn-dark' id='${currentCamera._id}'>
-                            Retirer du Panier
+                            Valider la quantité
                         </a>
                     </div>
                 </div>
@@ -40,13 +75,26 @@ async function basketListBuilder() {
         namesInBasket.push(currentCamera.name)
         camerasInBasket.push(currentCamera)
     }
-    for (let i = 0; i < basketIds.length; i++) {
-        document.getElementById(basketIds[i]).addEventListener("click", () => {
-            localStorage.removeItem(namesInBasket[i]);
-            console.log("clic !")
-            window.location.reload();
-        })    
+    for (let i = 0; i < basketIdsObjects.length; i++) {
+        document.getElementById(basketIdsObjects[i].id).addEventListener("click", () => {
+            // on met dans une variable la quantité entrée dans le formulaire
+            let quantityValue = document.getElementById(`quantity-${basketIdsObjects[i].id}`).value
+            let currentCameraId = basketIdsObjects[i].id
+            basketIdsObjects[i].quantity = quantityValue
+            console.log("quantité éditée à : " + basketIdsObjects[i].quantity)
+            //window.location.reload();
+        })
     }
+
+
+
+    // for (let i = 0; i < basketIds.length; i++) {
+    //     document.getElementById(basketIds[i]).addEventListener("click", () => {
+    //         localStorage.removeItem(namesInBasket[i]);
+    //         console.log("clic !")
+    //         window.location.reload();
+    //     })    
+    // }
 }
 basketListBuilder()
 
