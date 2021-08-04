@@ -8,8 +8,9 @@ function getBasket() {
     let basket = stringBasket.split(","); 
     return basket
 }
+let basket = getBasket()
+let totalPrice = 0
 let camerasInBasket = []
-
 async function basketListBuilder() {
     const itemsListBasket = document.getElementById('basketList');
     let basketIds = getBasket()
@@ -46,10 +47,19 @@ async function basketListBuilder() {
         }
     } 
     let namesInBasket = []
-    // console.log("basket IDs : " + basketIds)
+
+    let currentCameraPriceSum = 0
     for (let i = 0; i < basketIdsObjects.length; i++) {
         let currentCamera = await apiConnection.getSelectedCamera(basketIdsObjects[i].id)
         let cameraPrice = addSpace(currentCamera.price)
+
+        // on multiplie le prix de l'appareil de photo par sa quantité
+        currentCameraPriceSum = currentCamera.price * basketIdsObjects[i].quantity
+        console.log("prix de la somme : " + currentCameraPriceSum)
+        // puis on l'ajoute à la variable contenant le prix total du panier
+        totalPrice = totalPrice + currentCameraPriceSum
+        console.log("prix total du panier : " + totalPrice)
+
         itemsListBasket.innerHTML = itemsListBasket.innerHTML +
         `<div class="card mb-3 mx-3" style="max-width: 500px;">
             <div class="row g-0">
@@ -84,7 +94,6 @@ async function basketListBuilder() {
             basketIdsObjects[i].quantity = quantityValue
             console.log("quantité éditée dans l'array à : " + basketIdsObjects[i].quantity)
             // on récupère l'array panier
-            let basket = getBasket()
             console.log("=> panier récupéré du local storage (avant modification) : " + basket)
             // on en supprime toutes les occurences de l'appareil de photo courant
             temporaryBasket = basket.filter(function(element) {
@@ -104,6 +113,9 @@ async function basketListBuilder() {
             window.location.reload();
         })
     }
+
+    const totalPriceDiv = document.getElementById('totalPriceDiv')
+    totalPriceDiv.innerHTML = `Prix total : <b>${totalPrice} €</b>`
 
 
     // for (let i = 0; i < basketIds.length; i++) {
