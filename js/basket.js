@@ -1,5 +1,5 @@
 /* ======================== PANIER ========================*/
-// localStorage.clear();
+
 // on crée une fonction qui récupère le panier
 function getBasket() {
     // on récupère la valeur de la clef Basket, c'est donc une string
@@ -98,15 +98,20 @@ async function basketListBuilder() {
                 return element !== currentCameraId
             })
             basket = temporaryBasket
-            console.log("=> panier après le filter : " + basket)
-            // on boucle autant que la quantité de l'appareil de photo courant
-            for (let j = 0; j < basketIdsObjects[i].quantity; j++){
+
+            if(basketIdsObjects[i].quantity == 0){
+                // si la quantité est mise à zéro, on renvoie directement le panier imputé de l'ID de l'appareil de photo courant
+                localStorage.setItem('Basket', basket)
+            }else{
+                // sinon, on boucle autant que la quantité de l'appareil de photo courant
+                for (let j = 0; j < basketIdsObjects[i].quantity; j++){
                 console.log("======== tour de boucle " + [j] + " ========")
                 // et on push son ID à chaque tour de boucle
                 basket.push(currentCameraId)
-                console.log("contenu de basket : " + basket)
                 localStorage.setItem('Basket', basket)
+                }
             }
+            
             // on recharge la page
             window.location.reload();
         })

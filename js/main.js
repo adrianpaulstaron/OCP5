@@ -56,7 +56,6 @@ const apiConnection = new ApiConnector("http://localhost:3000/api")
 function addSpace(number){
     // on transforme le nombre en string
     number = number.toString()
-
     // si le nombre est supérieur à 999, on veut ajouter un espace
     if(number.length > 3 && number.length < 7) {
         // on déclare une variable contenant les 3 derniers chiffres du nombre
@@ -81,4 +80,3 @@ function addSpace(number){
         return number
     }
 }
-// 1 659 400
