@@ -55,10 +55,8 @@ async function basketListBuilder() {
 
         // on multiplie le prix de l'appareil de photo par sa quantité
         currentCameraPriceSum = currentCamera.price * basketIdsObjects[i].quantity
-        console.log("prix de la somme : " + currentCameraPriceSum)
         // puis on l'ajoute à la variable contenant le prix total du panier
         totalPrice = totalPrice + currentCameraPriceSum
-        console.log("prix total du panier : " + totalPrice)
 
         itemsListBasket.innerHTML = itemsListBasket.innerHTML +
         `<div class="card mb-3 mx-3" style="max-width: 500px;">
@@ -115,7 +113,10 @@ async function basketListBuilder() {
     }
 
     const totalPriceDiv = document.getElementById('totalPriceDiv')
-    totalPriceDiv.innerHTML = `Prix total : <b>${totalPrice} €</b>`
+    totalPriceDiv.innerHTML = `Prix total : <b>${
+        addSpace(totalPrice)
+        // totalPrice
+    } €</b>`
 
 
     // for (let i = 0; i < basketIds.length; i++) {

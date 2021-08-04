@@ -56,15 +56,31 @@ const apiConnection = new ApiConnector("http://localhost:3000/api")
 function addSpace(number){
     // on transforme le nombre en string
     number = number.toString()
+
     // si le nombre est supérieur à 999, on veut ajouter un espace
-    if(number.length > 3) {
+    if(number.length > 3 && number.length < 7) {
         // on déclare une variable contenant les 3 derniers chiffres du nombre
         let endOfNumber = number.substring(number.length, number.length-3)
         // on déclare une variable contenant les autres chiffres du nombre
         let beginningOfNumber = number.substring(number.length-3, 0)
-        // on retourne les les autres chiffres du nombre, concaténés à un espace, concaténé aux 3 derniers chiffres du nombre
+        // on retourne les autres chiffres du nombre, concaténés à un espace, concaténé aux 3 derniers chiffres du nombre
         return beginningOfNumber + " " + endOfNumber
-    }else{
+    }
+    // si le nombre est supérieur à 999 999, on veut ajouter deux espaces
+    if(number.length > 6) {
+        console.log("number length > 6")
+        // on déclare une variable contenant les 3 derniers chiffres du nombre
+        let endOfNumber = number.substring(number.length, number.length-3)
+        // on déclare une variable contenant les 3 avant-derniers chiffres du nombre
+        let middleOfNumber = number.substring(number.length-3, number.length-6)
+        // on déclare une variable contenant les autres chiffres du nombre
+        let beginningOfNumber = number.substring(number.length-6, 0)
+        // on retourne tout avec les espaces
+        console.log(beginningOfNumber + " " + middleOfNumber + " " + endOfNumber)
+        return beginningOfNumber + " " + middleOfNumber + " " + endOfNumber
+    }
+    else{
         return number
     }
 }
+// 1 659 400
