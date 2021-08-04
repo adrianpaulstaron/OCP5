@@ -5,12 +5,12 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./style.css">
         <title>Orinoco</title>
-
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
 
     <body>
         <div class="container">
+            <!-- navbar -->
             <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="index.html"><img src="./images/logo.png" alt="Orinoco"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,6 +27,7 @@
                     </ul>
                 </div>
             </nav>
+            <!-- section propre à la page -->
             <section id="itemsPage" class="text-center">
                 <h2 class="py-2">
                     Articles
@@ -39,28 +40,9 @@
                     </div>
                 </div>
                 </br></br>
-                <!-- <h2>
-                    Votre sélection
-                </h2>
-                <div id="selectedItemDiv">
-                </div>
-                <button type="button" class="btn btn-outline-dark d-none active hidablebtn" id="blackButton">Noir</button>
-                <button type="button" class="btn btn-outline-danger d-none hidablebtn" id="redButton">Rouge</button>
-            </br></br>
-            <button type="button" class="btn btn-success d-none hidablebtn" id="addToCart">Ajouter au Panier</button> -->
-        
-            </section>
-
-            <section id="basketPage" class="d-none">
-                <h2>
-                    Panier
-                </h2>
-                <ul class="list-group list-group-flush" id="basketItemsList">
-                </ul>
-                <div></div>
-
             </section>
         </div>
+        <!-- appel du javascript général, puis de celui spécifique à la page -->
         <script src="js/main.js"></script>
         <script src="js/items.js"></script> 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
