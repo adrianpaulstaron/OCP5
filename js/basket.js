@@ -1,5 +1,5 @@
 /* ======================== PANIER ========================*/
-
+// localStorage.clear();
 // on crée une fonction qui récupère le panier
 function getBasket() {
     // on récupère la valeur de la clef Basket, c'est donc une string
@@ -13,7 +13,6 @@ let camerasInBasket = []
 async function basketListBuilder() {
     const itemsListBasket = document.getElementById('basketList');
     let basketIds = getBasket()
-    let basketIdsList = []
     let basketIdsObjects = []
     // on déclare une fonction pour trouver les IDs déjà existants dans un array
     function idFinder(array, id) {
@@ -77,15 +76,34 @@ async function basketListBuilder() {
     }
     for (let i = 0; i < basketIdsObjects.length; i++) {
         document.getElementById(basketIdsObjects[i].id).addEventListener("click", () => {
+            console.log("clic")
             // on met dans une variable la quantité entrée dans le formulaire
             let quantityValue = document.getElementById(`quantity-${basketIdsObjects[i].id}`).value
             let currentCameraId = basketIdsObjects[i].id
+            // on édite la quantité de l'appareil de photo dans notre array
             basketIdsObjects[i].quantity = quantityValue
-            console.log("quantité éditée à : " + basketIdsObjects[i].quantity)
-            //window.location.reload();
+            console.log("quantité éditée dans l'array à : " + basketIdsObjects[i].quantity)
+            // on récupère l'array panier
+            let basket = getBasket()
+            console.log("=> panier récupéré du local storage (avant modification) : " + basket)
+            // on en supprime toutes les occurences de l'appareil de photo courant
+            temporaryBasket = basket.filter(function(element) {
+                return element !== currentCameraId
+            })
+            basket = temporaryBasket
+            console.log("=> panier après le filter : " + basket)
+            // on boucle autant que la quantité de l'appareil de photo courant
+            for (let j = 0; j < basketIdsObjects[i].quantity; j++){
+                console.log("======== tour de boucle " + [j] + " ========")
+                // et on push son ID à chaque tour de boucle
+                basket.push(currentCameraId)
+                console.log("contenu de basket : " + basket)
+                localStorage.setItem('Basket', basket)
+            }
+            // on recharge la page
+            window.location.reload();
         })
     }
-
 
 
     // for (let i = 0; i < basketIds.length; i++) {
