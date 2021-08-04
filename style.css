@@ -42,3 +42,8 @@ body {
 .quantityFields{
     max-width: 80px;
 }
+
+.quantityForms{
+    display: flex;
+    justify-content: center;
+}

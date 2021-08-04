@@ -68,7 +68,6 @@ function addSpace(number){
     }
     // si le nombre est supérieur à 999 999, on veut ajouter deux espaces
     if(number.length > 6) {
-        console.log("number length > 6")
         // on déclare une variable contenant les 3 derniers chiffres du nombre
         let endOfNumber = number.substring(number.length, number.length-3)
         // on déclare une variable contenant les 3 avant-derniers chiffres du nombre
@@ -76,7 +75,6 @@ function addSpace(number){
         // on déclare une variable contenant les autres chiffres du nombre
         let beginningOfNumber = number.substring(number.length-6, 0)
         // on retourne tout avec les espaces
-        console.log(beginningOfNumber + " " + middleOfNumber + " " + endOfNumber)
         return beginningOfNumber + " " + middleOfNumber + " " + endOfNumber
     }
     else{

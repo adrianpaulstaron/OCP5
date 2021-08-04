@@ -69,7 +69,7 @@ async function basketListBuilder() {
                         <h5 class="card-title">${currentCamera.name}</h5>
                         <p class="card-text">${currentCamera.description}</p>
                         <p class="card-text"><small class="text-muted">${cameraPrice} €</small></p>
-                        <form id="quantityForm-${currentCamera._id}">
+                        <form class="quantityForms mb-2" id="quantityForm-${currentCamera._id}">
                         <input id="quantity-${basketIdsObjects[i].id}" name="quantity" type="number" class="form-control my-1 quantityFields" value=${basketIdsObjects[i].quantity} required>
                         </form>
                         <a href='#' class='btn btn-dark' id='${currentCamera._id}'>
