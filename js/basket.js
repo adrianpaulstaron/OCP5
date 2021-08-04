@@ -41,6 +41,11 @@ async function basketListBuilder() {
                 {id : basketIds[i],
                 quantity: 1}
             )
+            // on trie les appareils de photo par ID afin d'éviter que l'appareil de photo modifié n'apparaisse en fin de liste: c'est confusant pour l'utilisateur
+            let sortedBasketIdsObjects = basketIdsObjects.sort(function(a, b) {
+                return a.id.localeCompare(b.id);
+            });
+            basketIdsObjects = sortedBasketIdsObjects
         }else{
             // si l'objet de l'appareil de photo courant existe, on incrémente sa quantité
             basketIdsObjects[foundId].quantity ++
@@ -120,17 +125,7 @@ async function basketListBuilder() {
     const totalPriceDiv = document.getElementById('totalPriceDiv')
     totalPriceDiv.innerHTML = `Prix total : <b>${
         addSpace(totalPrice)
-        // totalPrice
     } €</b>`
-
-
-    // for (let i = 0; i < basketIds.length; i++) {
-    //     document.getElementById(basketIds[i]).addEventListener("click", () => {
-    //         localStorage.removeItem(namesInBasket[i]);
-    //         console.log("clic !")
-    //         window.location.reload();
-    //     })    
-    // }
 }
 basketListBuilder()
 
