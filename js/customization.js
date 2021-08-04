@@ -38,12 +38,10 @@ async function cameraCustomizer(cameraId) {
         </div>
     </div>`
     document.getElementById('addtobasket').addEventListener("click", () => {
-        // localStorage.setItem(selectedCamera.name, selectedCamera._id);            
-        if(localStorage.getItem('Basket') == null){
-            // si la clef Basket n'existe pas, on la crée et on lui assigne l'id de l'appareil de photo qu'on veut ajouter au panier
+        if(localStorage.getItem('Basket') == null || localStorage.getItem('Basket') == ""){
+            // si la clef Basket n'existe pas ou qu'elle a comme valeur une string vide (ce qui arrive si jamais on vide le panier de tous ses appareils de photo), on la crée et on lui assigne l'id de l'appareil de photo qu'on veut ajouter au panier
             localStorage.setItem('Basket', selectedCamera._id)
         }else{
-
             // si la clef basket existe, on récupère sa valeur
             let currentBasket = localStorage.getItem('Basket');
             // on la concatène avec la l'ID du nouvel appareil de photo

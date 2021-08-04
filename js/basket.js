@@ -9,6 +9,8 @@ function getBasket() {
     return basket
 }
 let basket = getBasket()
+console.log(basket)
+
 let totalPrice = 0
 let camerasInBasket = []
 async function basketListBuilder() {
@@ -50,7 +52,7 @@ async function basketListBuilder() {
             // si l'objet de l'appareil de photo courant existe, on incrémente sa quantité
             basketIdsObjects[foundId].quantity ++
         }
-    } 
+    }
     let namesInBasket = []
 
     let currentCameraPriceSum = 0
