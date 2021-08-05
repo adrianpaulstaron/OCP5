@@ -124,7 +124,7 @@ async function basketListBuilder() {
                     // on recharge la page
                     window.location.reload();
             }else{
-                informationDiv.innerHTML = "Quantité invalide."
+                informationDiv.innerHTML = "<p>Quantité non valide.</p>"
             }
 
         })
@@ -137,52 +137,58 @@ async function basketListBuilder() {
 basketListBuilder()
 
 document.getElementById('placeOrder').addEventListener("click", 
-// on crée une fonction asynchrone pour traiter l'envoi de la commande
-async () => {
-    // on met dans deux variables les données à envoyer
-    let contact = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        address: document.getElementById('address').value,
-        city: document.getElementById('city').value,
-        email: document.getElementById('email').value
-    }
-    let productsInBasket = getBasket()
-    // on respecte la mise en forme demandée par l'API:
-    // contact: {
-    //     firstName: string,
-    //     lastName: string,
-    //     address: string,
-    //     city: string,
-    //     email: string
-    // }
-    // products: [string] <-- array of product _id
-    let data = {
-        contact: {
-            firstName: contact.firstName,
-            lastName: contact.lastName,
-            address: contact.address,
-            city: contact.city,
-            email: contact.email
-        },
-        products: productsInBasket
-    }
-    // on attend la réponse du serveur pour récupérer l'ID de la commande
-    let orderId = await apiConnection.sendBasket(data);
-    // si l'API renvoie un numéro de commande, c'est qu'on lui a envoyé une requête satisfaisante, on vérifie donc la truthiness de notre variable orderId avant de vider le localStorage et de passer à la page de confirmation
-    if(orderId){
-        localStorage.clear();
-        location.href = `orderconfirmation.html?order=${orderId}`
-    }
-    // si le localStorage a une longueur de 0, c'est qu'il n'y a rien dans le panier
-    if(localStorage.length == 0){
-        informationDiv.innerHTML = `Votre panier est vide.`
-    }
-    // si orderId est undefined et que localStorage n'a pas une longueur de 0, c'est que le formulaire n'a pas été rempli
-    else{
-        informationDiv.innerHTML = `Veuillez correctement renseigner la totalité des champs du formulaire.`
-    }; 
-})
+    // on crée une fonction asynchrone pour traiter l'envoi de la commande
+    async () => {
+        // on vérfie que l'e-mail en est bien un 
+        if(emailChecker(document.getElementById('email').value)
+        ){
+            // on met dans deux variables les données à envoyer
+            let contact = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                email: document.getElementById('email').value
+            }
+            let productsInBasket = getBasket()
+            // on respecte la mise en forme demandée par l'API:
+            // contact: {
+            //     firstName: string,
+            //     lastName: string,
+            //     address: string,
+            //     city: string,
+            //     email: string
+            // }
+            // products: [string] <-- array of product _id
+            let data = {
+                contact: {
+                    firstName: contact.firstName,
+                    lastName: contact.lastName,
+                    address: contact.address,
+                    city: contact.city,
+                    email: contact.email
+                },
+                products: productsInBasket
+            }
+            // on attend la réponse du serveur pour récupérer l'ID de la commande
+            let orderId = await apiConnection.sendBasket(data);
+            // si l'API renvoie un numéro de commande, c'est qu'on lui a envoyé une requête satisfaisante, on vérifie donc la truthiness de notre variable orderId avant de vider le localStorage et de passer à la page de confirmation
+            if(orderId){
+                localStorage.clear();
+                location.href = `orderconfirmation.html?order=${orderId}`
+            }
+            // si le localStorage a une longueur de 0, c'est qu'il n'y a rien dans le panier
+            if(localStorage.length == 0){
+                informationDiv.innerHTML = `Votre panier est vide.`
+            }
+            // si orderId est undefined et que localStorage n'a pas une longueur de 0, c'est que le formulaire n'a pas été rempli
+            else{
+                informationDiv.innerHTML = `<p>Veuillez correctement renseigner la totalité des champs du formulaire.</p>`
+            }; 
+        }else{
+            informationDiv.innerHTML = `<p>Veuillez renseigner un e-mail valide.</p>`
+        }
+    })
 
 // on crée une fonction vérifiant qu'on lui passe un email valide
 function emailChecker(input) {
@@ -194,14 +200,12 @@ function emailChecker(input) {
     }
 }
 
-// on crée une fonction vérifiant qu'on lui passe un chiffre entier
+// on crée une fonction vérifiant qu'on lui passe un chiffre entier positif
 function numberChecker(input) {
     var validRegex = /^[0-9]$/;
     if (input.match(validRegex)) {
-        console.log("ceci est bien un entier positif")
         return true;
     } else {
-        console.log("ceci n'est pas un entier positif")
         return false;
     }
 }
