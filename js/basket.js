@@ -1,4 +1,5 @@
 /* ======================== PANIER ========================*/
+const informationDiv = document.getElementById('informationDiv')
 
 // on crée une fonction qui récupère le panier
 function getBasket() {
@@ -9,10 +10,10 @@ function getBasket() {
     return basket
 }
 let basket = getBasket()
-console.log(basket)
 
 let totalPrice = 0
 let camerasInBasket = []
+
 async function basketListBuilder() {
     const itemsListBasket = document.getElementById('basketList');
     let basketIds = getBasket()
@@ -75,7 +76,7 @@ async function basketListBuilder() {
                     <div class="card-body">
                         <h5 class="card-title">${currentCamera.name}</h5>
                         <p class="card-text">${currentCamera.description}</p>
-                        <p class="card-text"><small class="text-muted">${cameraPrice} €</small></p>
+                        <p class="card-text"><small class="text-muted">Prix unitaire: ${cameraPrice} €</small></p>
                         <form class="quantityForms mb-2" id="quantityForm-${currentCamera._id}">
                         <input id="quantity-${basketIdsObjects[i].id}" name="quantity" type="number" class="form-control my-1 quantityFields" value=${basketIdsObjects[i].quantity} required>
                         </form>
@@ -94,36 +95,40 @@ async function basketListBuilder() {
             console.log("clic")
             // on met dans une variable la quantité entrée dans le formulaire
             let quantityValue = document.getElementById(`quantity-${basketIdsObjects[i].id}`).value
-            let currentCameraId = basketIdsObjects[i].id
-            // on édite la quantité de l'appareil de photo dans notre array
-            basketIdsObjects[i].quantity = quantityValue
-            console.log("quantité éditée dans l'array à : " + basketIdsObjects[i].quantity)
-            // on récupère l'array panier
-            console.log("=> panier récupéré du local storage (avant modification) : " + basket)
-            // on en supprime toutes les occurences de l'appareil de photo courant
-            temporaryBasket = basket.filter(function(element) {
-                return element !== currentCameraId
-            })
-            basket = temporaryBasket
+            // on vérifie qu'on a un nombre valide dans le champ
+            if(numberChecker(quantityValue)){
+                let currentCameraId = basketIdsObjects[i].id
+                // on édite la quantité de l'appareil de photo dans notre array
+                basketIdsObjects[i].quantity = quantityValue
+                console.log("quantité éditée dans l'array à : " + basketIdsObjects[i].quantity)
+                // on récupère l'array panier
+                console.log("=> panier récupéré du local storage (avant modification) : " + basket)
+                // on en supprime toutes les occurences de l'appareil de photo courant
+                temporaryBasket = basket.filter(function(element) {
+                    return element !== currentCameraId
+                })
+                basket = temporaryBasket
 
-            if(basketIdsObjects[i].quantity == 0){
-                // si la quantité est mise à zéro, on renvoie directement le panier imputé de l'ID de l'appareil de photo courant
-                localStorage.setItem('Basket', basket)
-            }else{
-                // sinon, on boucle autant que la quantité de l'appareil de photo courant
-                for (let j = 0; j < basketIdsObjects[i].quantity; j++){
-                console.log("======== tour de boucle " + [j] + " ========")
-                // et on push son ID à chaque tour de boucle
-                basket.push(currentCameraId)
-                localStorage.setItem('Basket', basket)
+                if(basketIdsObjects[i].quantity == 0){
+                    // si la quantité est mise à zéro, on renvoie directement le panier imputé de l'ID de l'appareil de photo courant
+                    localStorage.setItem('Basket', basket)
+                }else{
+                    // sinon, on boucle autant que la quantité de l'appareil de photo courant
+                    for (let j = 0; j < basketIdsObjects[i].quantity; j++){
+                    console.log("======== tour de boucle " + [j] + " ========")
+                    // et on push son ID à chaque tour de boucle
+                    basket.push(currentCameraId)
+                    localStorage.setItem('Basket', basket)
+                    }
                 }
+                    // on recharge la page
+                    window.location.reload();
+            }else{
+                informationDiv.innerHTML = "Quantité invalide."
             }
-            
-            // on recharge la page
-            window.location.reload();
+
         })
     }
-
     const totalPriceDiv = document.getElementById('totalPriceDiv')
     totalPriceDiv.innerHTML = `Prix total : <b>${
         addSpace(totalPrice)
@@ -164,7 +169,6 @@ async () => {
     }
     // on attend la réponse du serveur pour récupérer l'ID de la commande
     let orderId = await apiConnection.sendBasket(data);
-    const informationDiv = document.getElementById('informationDiv')
     // si l'API renvoie un numéro de commande, c'est qu'on lui a envoyé une requête satisfaisante, on vérifie donc la truthiness de notre variable orderId avant de vider le localStorage et de passer à la page de confirmation
     if(orderId){
         localStorage.clear();
@@ -176,6 +180,38 @@ async () => {
     }
     // si orderId est undefined et que localStorage n'a pas une longueur de 0, c'est que le formulaire n'a pas été rempli
     else{
-        informationDiv.innerHTML = `Veuillez remplir la totalité des champs du formulaire.`
+        informationDiv.innerHTML = `Veuillez correctement renseigner la totalité des champs du formulaire.`
     }; 
 })
+
+// on crée une fonction vérifiant qu'on lui passe un email valide
+function emailChecker(input) {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (input.match(validRegex)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// on crée une fonction vérifiant qu'on lui passe un chiffre entier
+function numberChecker(input) {
+    var validRegex = /^[0-9]$/;
+    if (input.match(validRegex)) {
+        console.log("ceci est bien un entier positif")
+        return true;
+    } else {
+        console.log("ceci n'est pas un entier positif")
+        return false;
+    }
+}
+
+// // on crée une fonction vérifiant qu'on lui passe tout sauf des nombres
+// function numberChecker(input) {
+//     var validRegex = /^([^0-9]*)$/;
+//     if (input.match(validRegex)) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }

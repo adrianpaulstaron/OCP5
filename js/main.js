@@ -2,17 +2,6 @@
 
 let params = (new URL(document.location)).searchParams;
 
-// on crée une classe Camera
-class Camera {
-    constructor(id, name, price, description, imageUrl) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.imageUrl = imageUrl;
-    }
-}
-
 // la classe ApiConnector attend une url en argument, qui sera l'url générale de l'API
 class ApiConnector {
     constructor (url) {
