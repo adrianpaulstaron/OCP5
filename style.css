@@ -44,3 +44,7 @@ body {
     display: flex;
     justify-content: center;
 }
+
+#separatorDiv{
+    height: 10px;
+}
